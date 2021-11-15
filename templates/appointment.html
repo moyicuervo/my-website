@@ -1,0 +1,36 @@
+{% include "header.html" %}
+{% block content %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/contact-bg.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Agendar turno</h1>
+            <span class="subheading">Deseas agendar un encuentro?.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p>Seleccione la fecha y hora deseada.</p>
+        <form action="" method='POST' name="myform">
+          {{ form.csrt_token }}
+          {{ form.date.label }} {{ form.date(class='datepicker') }} {{ form.hidden_tag() }} <br>
+          {{ form.hour.label }} {{ form.hour(class='timepicker') }} {{ form.hidden_tag() }} <br>
+          {{ form.submit() }}
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  {% endblock %}
+  {% include "footer.html" %}
