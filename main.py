@@ -76,7 +76,7 @@ class Appointment(db.Model):
     name = db.Column(db.String(100), db.ForeignKey("users.name"))
 
 
-db.create_all()
+#db.create_all()
 
 
 def admin_only(f):
