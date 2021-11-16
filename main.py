@@ -71,9 +71,10 @@ class Comment(db.Model):
 class Appointment(db.Model):
     __tablename__ = "appointment"
     id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     date = db.Column(db.String(200))
     hour = db.Column(db.String(200))
-    name = db.Column(db.String(100), db.ForeignKey("users.id"))
+    name = db.Column(db.String(100))
 
 
 db.create_all()
