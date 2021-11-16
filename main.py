@@ -73,7 +73,7 @@ class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(200))
     hour = db.Column(db.String(200))
-    name = db.Column(db.String(100), db.ForeignKey("users.name"))
+    name = db.Column(db.String(100), db.ForeignKey("users.id"))
 
 
 db.create_all()
