@@ -11,10 +11,10 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm, DateForm
 from flask_gravatar import Gravatar
-import sqlalchemy
+
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "8BYkEfBA6O6donzWlSihBXox7C0sKR6b")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False,
@@ -76,7 +76,7 @@ class Appointment(db.Model):
     name = db.Column(db.String(100), db.ForeignKey("users.name"))
 
 
-#db.create_all()
+db.create_all()
 
 
 def admin_only(f):
