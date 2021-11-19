@@ -9,32 +9,32 @@ from wtforms.fields.html5 import DateField, TimeField
 
 ##WTForm
 class CreatePostForm(FlaskForm):
-    title = StringField("Blog Post Title", validators=[DataRequired()])
-    subtitle = StringField("Subtitle", validators=[DataRequired()])
-    img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    body = CKEditorField("Blog Content", validators=[DataRequired()])
-    submit = SubmitField("Submit Post")
+    title = StringField("Título del post", validators=[DataRequired()])
+    subtitle = StringField("Subtítulo", validators=[DataRequired()])
+    img_url = StringField("Url de imagen", validators=[DataRequired(), URL()])
+    body = CKEditorField("Contenido", validators=[DataRequired()])
+    submit = SubmitField("Enviar Post")
 
 
 class RegisterForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    name = StringField("Name", validators=[DataRequired()])
-    submit = SubmitField("Sign Me Up!")
+    password = PasswordField("Contraseña", validators=[DataRequired()])
+    name = StringField("Nombre", validators=[DataRequired()])
+    submit = SubmitField("Registrarme!")
 
 
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Let Me In!")
+    password = PasswordField("Contraseña", validators=[DataRequired()])
+    submit = SubmitField("Ingresar!")
 
 
 class CommentForm(FlaskForm):
-    comment_text = CKEditorField("Comment", validators=[DataRequired()])
-    submit = SubmitField("Submit Comment")
+    comment_text = CKEditorField("Comentario", validators=[DataRequired()])
+    submit = SubmitField("Enviar comentario")
 
 
 class DateForm(FlaskForm):
-    date = DateField("date", format="'%Y-%m-%d'", validators=(validators.DataRequired(),))
-    hour = TimeField("hour", format="%H:%M", validators=(validators.DataRequired(),))
-    submit = SubmitField("Agendar")
+    date = DateField("Fecha", format="'%Y-%m-%d'", validators=(validators.DataRequired(),))
+    hour = TimeField("Hora", format="%H:%M", validators=(validators.DataRequired(),))
+    submit = SubmitField("Agendar cita")
