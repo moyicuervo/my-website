@@ -1,5 +1,3 @@
-import datetime
-
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, validators
 from wtforms.validators import DataRequired, URL
@@ -36,5 +34,5 @@ class CommentForm(FlaskForm):
 
 class DateForm(FlaskForm):
     date = DateField("Fecha", format="'%Y-%m-%d'", validators=(validators.DataRequired(),))
-    hour = TimeField("Hora", format="%H:%M", validators=(validators.DataRequired(),))
+    hour = TimeField("Hora", format="'%H:%M'", validators=(validators.DataRequired(),))
     submit = SubmitField("Agendar cita")

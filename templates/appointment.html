@@ -25,14 +25,16 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <p>Seleccione la fecha y hora deseada.</p>
-        <form action="" method='POST' name="myform">
-          {{ form.csrt_token }}
-          {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
-        </form>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+            {{ wtf.quick_form(form, method="post", novalidate=True, button_map={"submit": "primary"}) }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
   <hr>
 
   {% include "footer.html" %}
