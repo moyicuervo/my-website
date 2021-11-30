@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, validators
-from wtforms.validators import DataRequired, URL
+from wtforms.validators import DataRequired, URL, InputRequired
 from flask_ckeditor import CKEditorField
 from wtforms.fields.html5 import DateField, TimeField
-
+from datetime import datetime
 
 ##WTForm
 class CreatePostForm(FlaskForm):
@@ -33,6 +33,7 @@ class CommentForm(FlaskForm):
 
 
 class DateForm(FlaskForm):
-    date = DateField("Fecha", format="'%Y-%m-%d'", validators=(validators.DataRequired(),))
-    hour = TimeField("Hora", format="'%H:%M'", validators=(validators.DataRequired(),))
+    name = StringField("Nombre Completo", validators=[DataRequired()])
+    date = DateField("Fecha", validators=([InputRequired(), DataRequired()]))
+    hour = TimeField("Hora", validators=([InputRequired(), DataRequired()]))
     submit = SubmitField("Agendar cita")

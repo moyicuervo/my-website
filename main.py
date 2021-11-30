@@ -74,8 +74,8 @@ class Comment(db.Model):
 class Appointment(db.Model):
     __tablename__ = "appointment"
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String(250), unique=True, nullable=False)
-    hour = db.Column(db.String(250), unique=True, nullable=False)
+    date = db.Column(db.String(250), )
+    hour = db.Column(db.String(250), )
     name = db.Column(db.String(250))
 
 
@@ -196,23 +196,23 @@ def send_email(name, email, phone, message):
         connection.login(MY_EMAIL, EMAIL_PASSWORD)
         connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, msg=email_message)
 
-
 @app.route("/appointment", methods=["GET", "POST"])
 def appointment():
     form = DateForm()
     if form.validate_on_submit():
-        session["date"] = form.date.data
-        session["hour"] = form.hour.data
-        return redirect(url_for('date'))
+        data = Appointment(
+            date=str(form.date.data.strftime('%Y-%m-%d')),
+            hour=str(form.hour.data.strftime('%H:%M')),
+            name=form.name.data
+        )
+        db.session.add(data)
+        db.session.commit()
+        return redirect(url_for("date"))
     return render_template("appointment.html", form=form, current_user=current_user)
-
 
 @app.route('/date', methods=['GET', 'POST'])
 def date():
-    date = session["date"]
-    hour = session["hour"]
-    return render_template('date.html')
-
+    return render_template('date.html', current_user=current_user)
 
 @app.route("/new-post", methods=["GET", "POST"])
 @admin_only

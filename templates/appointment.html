@@ -1,18 +1,21 @@
 {% extends 'bootstrap/base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
-
 {% block content %}
 
 {% include "header.html" %}
 
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/contact-bg.jpg')}}')">
+   <!-- Page Header -->
+  <header class="masthead" style="background-image: url('static/img/contact-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
+            {% if day_sent: %}
+            <h2>La cita ha sido confirmada. &#9989;</h2>
+            {% else: %}
             <h1>Agendar turno</h1>
+            {% endif %}
             <span class="subheading">Deseas agendar un encuentro?.</span>
           </div>
         </div>
@@ -25,18 +28,12 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <p>Seleccione la fecha y hora deseada.</p>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-            {{ wtf.quick_form(form, method="post", novalidate=True, button_map={"submit": "primary"}) }}
-            </div>
-          </div>
-        </div>
+         {{ form.csrf_token() }}
+         {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
       </div>
     </div>
   </div>
-  <hr>
+ <hr>
 
   {% include "footer.html" %}
-
- {% endblock %}
+{% endblock %}
