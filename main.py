@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, redirect, url_for, flash, abort, session, request
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from datetime import date
+from datetime import date, timedelta
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -31,6 +31,10 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+@app.before_request
+def before_request():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=5)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -207,8 +211,8 @@ def appointment():
         )
         db.session.add(data)
         db.session.commit()
-        return redirect(url_for("date"))
-    return render_template("appointment.html", form=form, current_user=current_user)
+        return render_template("appointment.html", form=form, day_sent=True)
+    return render_template("appointment.html", form=form, current_user=current_user, day_sent=False)
 
 @app.route('/date', methods=['GET', 'POST'])
 def date():
