@@ -1,9 +1,11 @@
+import time
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, validators
-from wtforms.validators import DataRequired, URL, InputRequired
+from wtforms.validators import DataRequired, URL, InputRequired, ValidationError
 from flask_ckeditor import CKEditorField
 from wtforms.fields.html5 import DateField, TimeField
-from datetime import datetime
+from datetime import datetime, date
 
 ##WTForm
 class CreatePostForm(FlaskForm):
@@ -37,3 +39,24 @@ class DateForm(FlaskForm):
     date = DateField("Fecha", validators=([InputRequired(), DataRequired()]))
     hour = TimeField("Hora", validators=([InputRequired(), DataRequired()]))
     submit = SubmitField("Agendar cita")
+
+    def validate_date(form, field):
+        if form.date.data < date.today():
+            raise ValidationError("No es posible elegir un día anterior")
+        elif form.date.data.isoweekday() > 5:
+            raise ValidationError("No es posible elegir fin de semana")
+
+
+    def validate_hour(form,field):
+        now = datetime.now()
+        start = now.replace(hour=9, minute=59)
+        stop = now.replace(hour=18, minute=00)
+        starthour = start.hour
+        stophour = stop.hour
+        print(form.hour.data)
+        print(starthour)
+        print(stophour)
+        if form.hour.data < datetime.time(start):
+            raise ValidationError("No es posible elegir antes de las 10hs")
+        elif form.hour.data > datetime.time(stop):
+            raise ValidationError("No es posible elegir antes de las 18hs")
