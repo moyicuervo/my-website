@@ -1,3 +1,4 @@
+import datetime
 import os
 
 from flask import Flask, render_template, redirect, url_for, flash, abort, session, request
@@ -12,6 +13,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm, DateForm
 from flask_gravatar import Gravatar
 import smtplib
+from sqlalchemy import and_, select, column
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "8BYkEfBA6O6donzWlSihBXox7C0sKR6b")
@@ -110,7 +112,7 @@ def register():
         if User.query.filter_by(email=form.email.data).first():
             print(User.query.filter_by(email=form.email.data).first())
             # User already exists
-            flash("You've already signed up with that email, log in instead!")
+            flash("El email ya se encuentra registrado, en su lugar iniciar sesión!")
             return redirect(url_for('login'))
 
         hash_and_salted_password = generate_password_hash(
@@ -200,10 +202,22 @@ def send_email(name, email, phone, message):
         connection.login(MY_EMAIL, EMAIL_PASSWORD)
         connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, msg=email_message)
 
+
 @app.route("/appointment", methods=["GET", "POST"])
 def appointment():
     form = DateForm()
     if form.validate_on_submit():
+        if not current_user.is_authenticated:
+            flash("Necesitas estar logueado para comentar el post.")
+            return redirect(url_for("login"))
+
+        if Appointment.query.filter(and_(
+                Appointment.date.like(form.date.data),
+                Appointment.hour.like(form.hour.data.strftime('%H:%M'))
+        )
+        ).first():
+            flash("La fecha ya fue seleccionada")
+            return redirect(url_for('appointment'))
         data = Appointment(
             date=str(form.date.data.strftime('%Y-%m-%d')),
             hour=str(form.hour.data.strftime('%H:%M')),

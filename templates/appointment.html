@@ -27,9 +27,16 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <p>Seleccione la fecha y hora deseada.</p>
+      <p>Seleccione la fecha y hora deseada.</p>
          {{ form.csrf_token() }}
          {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+             <p style="color:red">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
       </div>
     </div>
   </div>
