@@ -1,5 +1,3 @@
-import time
-
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, validators
 from wtforms.validators import DataRequired, URL, InputRequired, ValidationError
@@ -36,6 +34,7 @@ class CommentForm(FlaskForm):
 
 class DateForm(FlaskForm):
     name = StringField("Nombre Completo", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired()])
     date = DateField("Fecha", validators=([InputRequired(), DataRequired()]))
     hour = TimeField("Hora", validators=([InputRequired(), DataRequired()]))
     submit = SubmitField("Agendar cita")

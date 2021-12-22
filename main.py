@@ -1,4 +1,3 @@
-import datetime
 import os
 
 from flask import Flask, render_template, redirect, url_for, flash, abort, session, request
@@ -13,7 +12,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm, DateForm
 from flask_gravatar import Gravatar
 import smtplib
-from sqlalchemy import and_, select, column
+from sqlalchemy import and_
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "8BYkEfBA6O6donzWlSihBXox7C0sKR6b")
@@ -22,8 +21,8 @@ Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False,
                     base_url=None)
 
-MY_EMAIL = "app.moyi@gmail.com"
-EMAIL_PASSWORD = "eVb7a2hhLr7NraU"
+MY_EMAIL = "caminemosjuntos.counseling@gmail.com"
+EMAIL_PASSWORD = "Caminemos2021"
 
 ##CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", "sqlite:///juntos.db")
@@ -80,10 +79,10 @@ class Comment(db.Model):
 class Appointment(db.Model):
     __tablename__ = "appointment"
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String(250), )
-    hour = db.Column(db.String(250), )
+    date = db.Column(db.String(250))
+    hour = db.Column(db.String(250))
     name = db.Column(db.String(250))
-
+    email = db.Column(db.String(250))
 
 db.create_all()
 
@@ -167,7 +166,7 @@ def show_post(post_id):
 
     if form.validate_on_submit():
         if not current_user.is_authenticated:
-            flash("Necesitas estar logueado para comentar el post.")
+            flash("Necesitás estar logueado para comentar el post.")
             return redirect(url_for("login"))
 
         new_comment = Comment(
@@ -221,16 +220,23 @@ def appointment():
         data = Appointment(
             date=str(form.date.data.strftime('%Y-%m-%d')),
             hour=str(form.hour.data.strftime('%H:%M')),
-            name=form.name.data
+            name=form.name.data,
+            email=form.email.data
         )
+        send_email_appointment(form.date.data, form.hour.data, form.name.data, form.email.data)
         db.session.add(data)
         db.session.commit()
         return render_template("appointment.html", form=form, day_sent=True)
     return render_template("appointment.html", form=form, current_user=current_user, day_sent=False)
 
-@app.route('/date', methods=['GET', 'POST'])
-def date():
-    return render_template('date.html', current_user=current_user)
+
+def send_email_appointment(date, hour, name, email):
+    email_message = f"Subject: turno confirmado: \n\nName: {name}\nEmail: {email} \nDia: {date}\nHorario:{hour}"
+    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+        connection.starttls()
+        connection.login(MY_EMAIL, EMAIL_PASSWORD)
+        connection.sendmail(from_addr=MY_EMAIL, to_addrs=email, msg=email_message)
+
 
 @app.route("/new-post", methods=["GET", "POST"])
 @admin_only
