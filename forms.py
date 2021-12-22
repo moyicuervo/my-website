@@ -33,7 +33,7 @@ class CommentForm(FlaskForm):
 
 
 class DateForm(FlaskForm):
-    name = StringField("Nombre Completo", validators=[DataRequired()])
+    name = StringField("Nombre", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
     date = DateField("Fecha", validators=([InputRequired(), DataRequired()]))
     hour = TimeField("Hora", validators=([InputRequired(), DataRequired()]))
@@ -44,7 +44,6 @@ class DateForm(FlaskForm):
             raise ValidationError("No es posible elegir un día anterior")
         elif form.date.data.isoweekday() > 5:
             raise ValidationError("No es posible elegir fin de semana")
-
 
     def validate_hour(form,field):
         now = datetime.now()
