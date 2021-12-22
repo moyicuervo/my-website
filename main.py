@@ -212,7 +212,7 @@ def appointment():
 
         if Appointment.query.filter(and_(
                 Appointment.date.like(form.date.data),
-                Appointment.hour.like(form.hour.data.strftime('%H:%M'))
+                Appointment.hour.like(form.hour.data)
         )
         ).first():
             flash("La fecha ya fue seleccionada")
