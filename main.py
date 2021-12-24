@@ -211,8 +211,8 @@ def appointment():
             return redirect(url_for("login"))
 
         if Appointment.query.filter(and_(
-                Appointment.date.like(form.date.data),
-                Appointment.hour.like(form.hour.data)
+                Appointment.date.like(form.date.data.strftime('%Y-%m-%d')),
+                Appointment.hour.like(form.hour.data.strftime('%H:%M'))
         )
         ).first():
             flash("La fecha ya fue seleccionada")
