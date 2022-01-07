@@ -35,6 +35,7 @@ class CommentForm(FlaskForm):
 class DateForm(FlaskForm):
     name = StringField("Nombre", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
+    phone = StringField("Teléfono", validators=[DataRequired()])
     date = DateField("Fecha", validators=([InputRequired(), DataRequired()]))
     hour = TimeField("Hora", validators=([InputRequired(), DataRequired()]))
     submit = SubmitField("Agendar cita")
@@ -42,6 +43,8 @@ class DateForm(FlaskForm):
     def validate_date(form, field):
         if form.date.data < date.today():
             raise ValidationError("No es posible elegir un día anterior")
+        elif form.date.data == date.today():
+            raise ValidationError("No es posible elegir la cita en el mismo día. Por favor, elegir con al menos un día de anticipación.")
         elif form.date.data.isoweekday() > 5:
             raise ValidationError("No es posible elegir fin de semana")
 
@@ -49,12 +52,9 @@ class DateForm(FlaskForm):
         now = datetime.now()
         start = now.replace(hour=9, minute=59)
         stop = now.replace(hour=18, minute=00)
-        starthour = start.hour
-        stophour = stop.hour
-        print(form.hour.data)
-        print(starthour)
-        print(stophour)
         if form.hour.data < datetime.time(start):
             raise ValidationError("No es posible elegir antes de las 10hs")
         elif form.hour.data > datetime.time(stop):
-            raise ValidationError("No es posible elegir antes de las 18hs")
+            raise ValidationError("No es posible elegir despues de las 18hs")
+        elif form.hour.data.minute != 0:
+            raise ValidationError("No es posible elegir minutos distintos a 00. Los turnos son al comienzo de la hora, por ejemplo 14:00")

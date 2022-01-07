@@ -83,6 +83,7 @@ class Appointment(db.Model):
     hour = db.Column(db.String(250))
     name = db.Column(db.String(250))
     email = db.Column(db.String(250))
+    phone = db.Column(db.String(100))
 
 db.create_all()
 
@@ -207,7 +208,7 @@ def appointment():
     form = DateForm()
     if form.validate_on_submit():
         if not current_user.is_authenticated:
-            flash("Necesitas estar logueado para comentar el post.")
+            flash("Necesitas estar logueado para agendar una cita.")
             return redirect(url_for("login"))
 
         if Appointment.query.filter(and_(
@@ -221,22 +222,24 @@ def appointment():
             date=str(form.date.data.strftime('%Y-%m-%d')),
             hour=str(form.hour.data.strftime('%H:%M')),
             name=form.name.data,
-            email=form.email.data
+            email=form.email.data,
+            phone=form.phone.data
+
         )
-        send_email_appointment(form.date.data, form.hour.data, form.name.data, form.email.data)
+        send_email_appointment(form.date.data, form.hour.data, form.name.data, form.email.data, form.phone.data)
         db.session.add(data)
         db.session.commit()
         return render_template("appointment.html", form=form, day_sent=True)
     return render_template("appointment.html", form=form, current_user=current_user, day_sent=False)
 
 
-def send_email_appointment(date, hour, name, email):
-    email_message = f"Subject: turno confirmado: \n\nName: {name}\nEmail: {email} \nDia: {date}\nHorario:{hour}"
+def send_email_appointment(date, hour, name, email, phone):
+    email_message = f"Subject: turno confirmado: \n\nNombre: {name} \nTeléfono: {phone} \nEmail: {email} \nDia: {date}\nHorario:{hour}"
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, EMAIL_PASSWORD)
         connection.sendmail(from_addr=MY_EMAIL, to_addrs=email, msg=email_message)
-
+        connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, msg=email_message)
 
 @app.route("/new-post", methods=["GET", "POST"])
 @admin_only
@@ -290,4 +293,4 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='localhost', port=5000, debug=True)
