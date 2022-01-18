@@ -1,0 +1,66 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+{% include "header.html" %}
+
+ <!-- Page Header -->
+  <header class="masthead" style="background-image: url('static/img/contact-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <span class="subheading">Citas Agendadas hasta el momento</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+      </div>
+    </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for date in all_dates %}
+          <table cellspancing="10">
+            <td>
+              <table>
+                <tr>
+                  <td>Fecha: </td>
+                  <td>{{date.date}}</td>
+                </tr>
+                <tr>
+                  <td>Hora: </td>
+                  <td>{{date.hour}}</td>
+                </tr>
+                <tr>
+                  <td>Nombre: </td>
+                  <td>{{date.name}}</td>
+                </tr>
+                <tr>
+                  <td>Email: </td>
+                  <td>{{date.email}}</td>
+                </tr>
+                <tr>
+                  <td>Teléfono: </td>
+                  <td>{{date.phone}}</td>
+                </tr>
+              </table>
+              </td>
+              <hr>
+              </table>
+          {% endfor %}
+      </div>
+  </div>
+ <hr>
+
+      {% include "footer.html" %}
+{% endblock %}

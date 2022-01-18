@@ -39,6 +39,12 @@
         {% endwith %}
       </div>
     </div>
+    <!-- Check Appointments -->
+        {% if current_user.id == 1: %}
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="{{url_for('get_all_appointments')}}">Ver citas</a>
+        </div>
+        {% endif %}
   </div>
  <hr>
 

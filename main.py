@@ -12,7 +12,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm, DateForm
 from flask_gravatar import Gravatar
 import smtplib
-from sqlalchemy import and_
+from sqlalchemy import and_, desc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "8BYkEfBA6O6donzWlSihBXox7C0sKR6b")
@@ -240,6 +240,13 @@ def send_email_appointment(date, hour, name, email, phone):
         connection.login(MY_EMAIL, EMAIL_PASSWORD)
         connection.sendmail(from_addr=MY_EMAIL, to_addrs=email, msg=email_message)
         connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, msg=email_message)
+
+
+@app.route('/get-all-appointments')
+@admin_only
+def get_all_appointments():
+    all_dates = Appointment.query.order_by(desc(Appointment.date))
+    return render_template("get-all-appointments.html", all_dates=all_dates, current_user=current_user)
 
 @app.route("/new-post", methods=["GET", "POST"])
 @admin_only
