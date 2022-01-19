@@ -234,7 +234,7 @@ def appointment():
 
 
 def send_email_appointment(date, hour, name, email, phone):
-    email_message = f"Subject: turno confirmado: \n\nNombre: {name} \nTeléfono: {phone} \nEmail: {email} \nDia: {date}\nHorario:{hour}"
+    email_message = f"Subject: turno confirmado: \n\nNombre: {name} \nTelefono: {phone} \nEmail: {email} \nDia: {date}\nHorario:{hour}"
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, EMAIL_PASSWORD)
