@@ -29,6 +29,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+        {% if current_user.id == 1: %}
         {% for date in all_dates %}
           <table cellspancing="10">
             <td>
@@ -57,7 +58,9 @@
               </td>
               <hr>
               </table>
+            <a href="{{url_for('delete_date', date_id=date.id) }}">✘</a>
           {% endfor %}
+        {% endif %}
       </div>
   </div>
  <hr>

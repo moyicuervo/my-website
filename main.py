@@ -299,5 +299,13 @@ def delete_post(post_id):
     return redirect(url_for('get_all_posts'))
 
 
+@app.route("/delete_date/<int:date_id>")
+@admin_only
+def delete_date(date_id):
+    date_to_delete = Appointment.query.get(date_id)
+    db.session.delete(date_to_delete)
+    db.session.commit()
+    return redirect(url_for('get_all_appointments'))
+
 if __name__ == "__main__":
     app.run(host='localhost', port=5000, debug=True)
