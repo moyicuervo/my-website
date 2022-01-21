@@ -11,7 +11,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             {% if is_edit: %}
-            <h1>Edit Post</h1>
+            <h1>Editar Post</h1>
             {% else: %}
             <h1>Nuevo Post</h1>
             {% endif %}
@@ -25,7 +25,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        {{ ckeditor.load() }}
+        {{ ckeditor.load(pkg_type='full') }}
         {{ ckeditor.config(name='body') }}
         {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
       </div>
