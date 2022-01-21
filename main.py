@@ -21,8 +21,10 @@ Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False,
                     base_url=None)
 
-EMAIL = "caminemosjuntos.counseling@gmail.com"
+#EMAIL = "caminemosjuntos.counseling@gmail.com"
 #EMAIL_PASSWORD = "Caminemos2021"
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+
 
 ##CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", "sqlite:///juntos.db")
@@ -234,8 +236,6 @@ def appointment():
 
 
 def send_email_appointment(date, hour, name, email, phone):
-    MY_EMAIL = User.query.filter_by(email=EMAIL).first()
-    EMAIL_PASSWORD = MY_EMAIL.password
     email_message = f"Subject: turno confirmado: \n\nNombre: {name} \nTelefono: {phone} \nEmail: {email} \nDia: {date}\nHorario:{hour}"
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
