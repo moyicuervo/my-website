@@ -33,7 +33,7 @@ class CommentForm(FlaskForm):
 
 
 class DateForm(FlaskForm):
-    name = StringField("Nombre", validators=[DataRequired()])
+    name = StringField("Nombre y Apellido", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
     phone = StringField("Teléfono", validators=[DataRequired()])
     date = DateField("Fecha", validators=([InputRequired(), DataRequired()]))
