@@ -26,6 +26,7 @@
   <!-- Main Content -->
   <div class="container">
     <div class="row">
+        {% if current_user.is_authenticated: %}
       <div class="col-lg-8 col-md-10 mx-auto">
       <p>Seleccione la fecha y hora deseada.</p>
          {{ form.csrf_token() }}
@@ -38,6 +39,10 @@
           {% endif %}
         {% endwith %}
       </div>
+        {% else: %}
+        <p>Por favor, para solicitar una cita se debe iniciado sesión. <br>
+        Si aún no te registraste, por favor, hacerlo para luego solicitar la cita.</p>
+        {% endif %}
     </div>
     <!-- Check Appointments -->
         {% if current_user.id == 1: %}
