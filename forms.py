@@ -55,6 +55,6 @@ class DateForm(FlaskForm):
         if form.hour.data < datetime.time(start):
             raise ValidationError("No es posible elegir antes de las 10hs")
         elif form.hour.data > datetime.time(stop):
-            raise ValidationError("No es posible elegir despues de las 18hs")
+            raise ValidationError("No es posible elegir después de las 18hs")
         elif form.hour.data.minute != 0:
             raise ValidationError("No es posible elegir minutos distintos a 00. Los turnos son al comienzo de la hora, por ejemplo 14:00")

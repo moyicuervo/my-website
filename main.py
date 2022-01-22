@@ -145,7 +145,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         # Email doesn't exist or password incorrect.
         if not user:
-            flash("El email no existe, por favor, intente nuevamnete.")
+            flash("El email no existe, por favor, intente nuevamente.")
             return redirect(url_for('login'))
         elif not check_password_hash(user.password, password):
             flash('Contraseña incorrecta, por favor, intente nuevamente.')
@@ -198,7 +198,7 @@ def contact():
 
 
 def send_email(name, email, phone, message):
-    email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
+    email_message = f"Subject:Nuevo Mensaje\n\nNombre: {name}\nEmail: {email}\nTelefono: {phone}\nMensaje:{message}"
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, EMAIL_PASSWORD)
