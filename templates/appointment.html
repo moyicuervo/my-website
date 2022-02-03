@@ -14,7 +14,7 @@
             {% if day_sent: %}
             <h2>La cita ha sido confirmada. &#9989;</h2>
             {% else: %}
-            <h1>Agendar turno</h1>
+            <h1>Programar citas</h1>
             {% endif %}
             <span class="subheading">¿Deseas agendar un encuentro?</span>
           </div>
@@ -29,6 +29,9 @@
         {% if current_user.is_authenticated: %}
       <div class="col-lg-8 col-md-10 mx-auto">
       <p>Seleccione la fecha y hora deseada.</p>
+
+        <p>El horario de atención es de 10 a 18 hs. <br>
+        Tener en cuenta que los horarios se expresa con hora Argentina (GMT-3)</p>
          {{ form.csrf_token() }}
          {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
           {% with messages = get_flashed_messages() %}
@@ -40,7 +43,7 @@
         {% endwith %}
       </div>
         {% else: %}
-        <p>Por favor, para solicitar una cita se debe iniciado sesión. <br>
+        <p>Por favor, para solicitar una cita se debe inicar sesión. <br>
         Si aún no te registraste, por favor, hacerlo para luego solicitar la cita.</p>
         {% endif %}
     </div>

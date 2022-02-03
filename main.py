@@ -102,7 +102,7 @@ def admin_only(f):
 
 @app.route('/')
 def get_all_posts():
-    posts = BlogPost.query.all()
+    posts = BlogPost.query.order_by(desc(BlogPost.date))
     return render_template("index.html", all_posts=posts, current_user=current_user)
 
 
@@ -188,9 +188,14 @@ def about():
     return render_template("about.html", current_user=current_user)
 
 
-@app.route("/whycounseling")
-def whycounseling():
+@app.route("/why-counseling")
+def why_counseling():
     return render_template("why-counseling.html", current_user=current_user)
+
+
+@app.route("/modalidad")
+def modalidad():
+    return render_template("modalidad.html", current_user=current_user)
 
 
 @app.route("/contact", methods=["GET", "POST"])

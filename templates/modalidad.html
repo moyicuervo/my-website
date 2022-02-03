@@ -1,0 +1,49 @@
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url({{ url_for('static', filename='img/whycounseling.jpeg')}})">
+    <link href="{{ url_for('static', filename='css/contact.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat|Sacramento" rel="stylesheet">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Modalidad de trabajo</h1>
+            <span class="subheading">y formas de pago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+        <div class="middle-container">
+          <div classs="profile">
+              <div class="skills">
+                <div class="skill-row">
+                  <h3>Modalidad de trabajo</h3>
+                  <p>Los encuentros tienen una duración de 45 minutos aproximadamente, y se concretizan de forma Online mediante las herramientas disponibles para tal fin.
+                      La duración del proceso dependerá de la necesidad y el desarrollo de la persona que consulta. Partiendo de la premisa que el consultante es quien más sabe de sí mismo y de lo que necesita, es quién decidirá la continuación o finalización del proceso.
+                      De igual modo, si durante el transcurso de los encuentros se hace presente la necesidad de una interconsulta con otro profesional especializado, será parte del mismo proceso de acompañamiento y, si así lo amerite, se realizará la derivación correspondiente o se trabajará de forma interdisciplinaria.
+                  </p>
+                <h3>Formas de pago</h3>
+                  <p>
+                    Los encuentros tendrán un arancel base que será acordado entre Consultante y Counselor durante el primer encuentro. El pago de la consulta se realizará a través de transferencia bancaria (para residentes en Argentina) y PayPal (para residentes en el Exterior). Los datos serán enviados oportunamente vía WhatsApp.
+                  </p>
+
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+  <hr>
+
+  {% include "footer.html" %}
