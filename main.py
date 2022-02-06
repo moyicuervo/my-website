@@ -246,7 +246,10 @@ def appointment():
 
 
 def send_email_appointment(date, hour, name, email, phone):
-    email_message = f"Subject: turno confirmado: \n\nNombre: {name} \nTelefono: {phone} \nEmail: {email} \nDia: {date}\nHorario:{hour}"
+    email_message = f"Subject: Turno confirmado: \n\nNombre: {name} \nTelefono: {phone} \nEmail: {email} \nCuando: {date}\nHorario:{hour}\n\n\n" \
+                    f"Antes del encuentro sera enviado el link de ingreso.\n" \
+                    f"En caso de cancelar el encuentro, por favor, hacerlo 24 horas antes.\n" \
+                    f"Gracias. Caminemos Juntos. Todos los derechos reservados."
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, EMAIL_PASSWORD)

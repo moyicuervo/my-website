@@ -5,14 +5,14 @@
 {% include "header.html" %}
 
    <!-- Page Header -->
-  <header class="masthead" style="background-image: url('static/img/contact-bg.jpg')">
+  <header class="masthead" style="background-image: url('static/img/cita.jpeg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             {% if day_sent: %}
-            <h2>La cita ha sido confirmada. &#9989;</h2>
+            <h1>La cita ha sido confirmada. &#9989;</h1>
             {% else: %}
             <h1>Programar citas</h1>
             {% endif %}
@@ -30,8 +30,9 @@
       <div class="col-lg-8 col-md-10 mx-auto">
       <p>Seleccione la fecha y hora deseada.</p>
 
-        <p>El horario de atención es de 10 a 18 hs. <br>
-        Tener en cuenta que los horarios se expresa con hora Argentina (GMT-3)</p>
+        <p>El horario de atención es de Lunes a Viernes 10 a 18 hs. <br>
+            Por turnos fuera de hora consultar por WhatsApp. <br>
+        Tener en cuenta que los horarios se expresan en hora Argentina (GMT-3)</p>
          {{ form.csrf_token() }}
          {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
           {% with messages = get_flashed_messages() %}
