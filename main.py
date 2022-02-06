@@ -13,11 +13,9 @@ from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm, DateForm
 from flask_gravatar import Gravatar
 import smtplib
 from sqlalchemy import and_, desc
-from flask_talisman import Talisman
 
 
 app = Flask(__name__)
-Talisman(app)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "8BYkEfBA6O6donzWlSihBXox7C0sKR6b")
 ckeditor = CKEditor(app)
 Bootstrap(app)
