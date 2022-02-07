@@ -39,15 +39,13 @@ login_manager.init_app(app)
 
 @app.before_request
 def before_request():
-
-     if app.env == "development":
+    if app.env == "development":
          return
-     if request.is_secure:
+    if request.is_secure:
          return
-
-     url = request.url.replace("http://", "https://", 1)
-     code = 301
-     return redirect(url, code=code)
+    url = request.url.replace("http://", "https://", 1)
+    code = 301
+    return redirect(url, code=code)
 
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
