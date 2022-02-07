@@ -1,12 +1,12 @@
 {% include "header.html" %}
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('../static/img/caminemosjuntos.jpeg')">
+  <header class="masthead" style="background-image: url({{ url_for('static', filename='img/lastcoverjuntos.jpeg')}})">
     <link href="{{ url_for('static', filename='css/about.css')}}" rel="stylesheet">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 col-md-10 mx-auto">
+        <div class="col-lg-12 col-10 mx-auto">
           <div class="site-heading">
             <h1 class="text-left">Bienvenidos</h1>
             <span class="subheading text-center" style="font-weight:bold">
