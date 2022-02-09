@@ -12,7 +12,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm, DateForm
 from flask_gravatar import Gravatar
 import smtplib
-from sqlalchemy import and_, desc
+from sqlalchemy import and_, desc, asc
 
 
 app = Flask(__name__)
@@ -113,7 +113,7 @@ def admin_only(f):
 
 @app.route('/')
 def get_all_posts():
-    posts = BlogPost.query.order_by(desc(BlogPost.date))
+    posts = BlogPost.query.order_by(desc(BlogPost.id))
     return render_template("index.html", all_posts=posts, current_user=current_user)
 
 
