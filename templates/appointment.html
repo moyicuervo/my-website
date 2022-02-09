@@ -6,6 +6,7 @@
 
    <!-- Page Header -->
   <header class="masthead" style="background-image: url('static/img/cita.jpeg')">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat|Sacramento" rel="stylesheet">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -28,10 +29,12 @@
     <div class="row">
         {% if current_user.is_authenticated: %}
       <div class="col-lg-8 col-md-10 mx-auto">
-        <p>El horario de atención es de Lunes a Viernes 10 a 18 hs. <br>
+        <p style="line-height: 2;font-size: 90%;text-align: justify">
+            El horario de atención es de Lunes a Viernes 10 a 18 hs. <br>
             Por turnos fuera de hora consultar disponibilidad por WhatsApp (+54 9 11 2604-6307). <br>
         Tener en cuenta que los horarios se expresan en hora Argentina (GMT-3)</p>
-          <p>Seleccione la fecha y hora deseada.</p>
+          <p style="line-height: 2;font-size: 90%;text-align: justify">
+              Seleccione la fecha y hora deseada.</p>
          {{ form.csrf_token() }}
          {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
           {% with messages = get_flashed_messages() %}
@@ -43,8 +46,7 @@
         {% endwith %}
       </div>
         {% else: %}
-        <p>Por favor, para solicitar una cita se debe iniciar sesión. <br>
-        Si aún no te registraste, por favor, hacerlo para luego solicitar la cita.</p>
+        <p>Para solicitar una cita es necesario registrarse e iniciar sesión. ¡Gracias!</p>
         {% endif %}
     </div>
     <!-- Check Appointments -->
