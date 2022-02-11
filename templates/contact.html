@@ -1,4 +1,9 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
 {% include "header.html" %}
+
 
    <!-- Page Header -->
   <header class="masthead" style="background-image: url('static/img/contact-bg.jpg')">
@@ -14,7 +19,7 @@
             {% else: %}
             <h1>Contacto</h1>
             {% endif %}
-            <span class="subheading">¿Tenés dudas? Envianos tu consulta</span>
+            <span class="subheading">¿Tenés dudas? Enviá tu consulta</span>
           </div>
         </div>
       </div>
@@ -69,3 +74,4 @@
   <hr>
 
   {% include "footer.html" %}
+{% endblock %}
