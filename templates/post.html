@@ -6,6 +6,7 @@
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('{{post.img_url}}')">
+      <meta property="og:image"         content="{{post.img_url}}" />
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -23,6 +24,8 @@
 </header>
 
 <!-- Post Content -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0&appId=512726102628684&autoLogAppEvents=1" nonce="2Ts96x9v"></script>
 <article>
     <div class="container">
         <div class="row">
@@ -35,6 +38,7 @@
                         Post</a>
                 </div>
                 {% endif %}
+                <div class="fb-share-button btm btn-primary" data-href="https://www.caminemosjuntos.com.ar/post/{{ post.id }}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.caminemosjuntos.com.ar%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" meta property="og:image" content="url('{{post.img_url}}')">Compartir</a></div>
 
 
                 <!--           Comments Area -->
