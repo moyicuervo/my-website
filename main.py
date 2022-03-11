@@ -264,8 +264,8 @@ def send_email_appointment(date, hour, name, email, phone):
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, EMAIL_PASSWORD)
-        connection.sendmail(from_addr=MY_EMAIL, to_addrs=email, msg=email_message)
-        connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, msg=email_message)
+        connection.sendmail(from_addr=MY_EMAIL, to_addrs=email, msg=email_message.encode('utf-8'))
+        connection.sendmail(from_addr=MY_EMAIL, to_addrs=MY_EMAIL, msg=email_message.encode('utf-8'))
 
 
 @app.route('/get-all-appointments')
