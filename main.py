@@ -257,9 +257,9 @@ def appointment():
 
 
 def send_email_appointment(date, hour, name, email, phone):
-    email_message = f"Subject: Turno confirmado: \n\nNombre: {name} \nTelefono: {phone} \nEmail: {email} \nCuando: {date}\nHorario:{hour}\n\n\n" \
-                    f"El link de ingreso sera enviado previo al encuentro.\n" \
-                    f"Si necesitas cancelar la cita, deberas hacerlo con 24 horas de anticipación a traves de este mail.\n" \
+    email_message = f"Subject: Turno confirmado: \n\nNombre: {name} \nTeléfono: {phone} \nEmail: {email} \nCuándo: {date}\nHorario:{hour}\n\n\n" \
+                    f"El link de ingreso será enviado previo al encuentro.\n" \
+                    f"Si necesitás cancelar la cita, deberás hacerlo con 24 horas de anticipación a través de este mail.\n" \
                     f"¡Gracias por elegirnos!\n Caminemos Juntos Counseling\n Todos los derechos reservados."
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
