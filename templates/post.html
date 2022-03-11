@@ -3,8 +3,7 @@
 
 {% block content %}
 {% include "header.html" %}
-<head>  <meta property="og:image"         content="https://www.caminemosjuntos.com.ar/static/img/pathway.jpeg" />
-</head>
+
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('{{post.img_url}}')">
     <div class="overlay"></div>
@@ -24,15 +23,7 @@
 </header>
 
 <!-- Post Content -->
-<div id="fb-root"></div>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-var js, fjs = d.getElementsByTagName(s)[0];
-if (d.getElementById(id)) return;
-js = d.createElement(s); js.id = id;
-js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+
 <article>
     <div class="container">
         <div class="row">
@@ -45,7 +36,24 @@ fjs.parentNode.insertBefore(js, fjs);
                         Post</a>
                 </div>
                 {% endif %}
-                <div class="fb-share-button btm btn-primary" data-href="https://www.caminemosjuntos.com.ar/post/{{ post.id }}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.caminemosjuntos.com.ar%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" meta property="og:image" content="url('{{post.img_url}}')">Compartir</a></div>
+                <script>
+function shareOverrideOGMeta(overrideLink, overrideTitle, overrideDescription, overrideImage)
+{
+	FB.ui({
+		method: 'share_open_graph',
+		action_type: 'og.likes',
+		action_properties: JSON.stringify({
+			object: {
+				'og:image': {{post.img_url}}
+			}
+		})
+	},
+	function (response) {
+	// Action after response
+	});
+}
+</script>
+                <div class="fb-share-button btm btn-primary" data-href="https://www.caminemosjuntos.com.ar/post/{{ post.id }}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.caminemosjuntos.com.ar%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" meta property="og:image" content="url('{{post.img_url}}')" onclick="sharePopUp(this.dataset);return false;">Compartir</a></div>
 
 
                 <!--           Comments Area -->
