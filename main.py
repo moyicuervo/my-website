@@ -13,12 +13,13 @@ from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm, DateForm
 from flask_gravatar import Gravatar
 import smtplib
 from sqlalchemy import and_, desc, asc
-
+from flask_compress import Compress
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "8BYkEfBA6O6donzWlSihBXox7C0sKR6b")
 ckeditor = CKEditor(app)
 Bootstrap(app)
+Compress(app)
 
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False,
                     base_url=None)
@@ -39,13 +40,13 @@ login_manager.init_app(app)
 
 @app.before_request
 def before_request():
-    if app.env == "development":
-         return
-    if request.is_secure:
-         return
-    url = request.url.replace("http://", "https://", 1)
-    code = 301
-    return redirect(url, code=code)
+    #if app.env == "development":
+     #    return
+    #if request.is_secure:
+     #    return
+    #url = request.url.replace("http://", "https://", 1)
+    #code = 301
+    #return redirect(url, code=code)
 
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
