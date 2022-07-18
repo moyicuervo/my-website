@@ -24,8 +24,8 @@ Compress(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False,
                     base_url=None)
 
-MY_EMAIL = "caminemosjuntos.counseling@gmail.com"
-EMAIL_PASSWORD = "Caminemos2021"
+MY_EMAIL = "enter_your_email"
+EMAIL_PASSWORD = "enter_your_pass"
 
 
 
